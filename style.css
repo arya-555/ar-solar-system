@@ -6,8 +6,7 @@ body {
     height: 100%;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    user-select: none;
-    background-color: #dbdadadd; 
+    user-select: none; 
 }
 
 /* Force A-Frame Scene behind HTML UI elements */
