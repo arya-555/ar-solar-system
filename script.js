@@ -350,3 +350,22 @@ window.addEventListener("unhandledrejection", (event) => {
         );
     }
 });
+
+// Detect mobile screen and adjust 3D model scale accordingly
+function adjustScaleForMobile() {
+    const solarSystem = document.getElementById('solarSystem');
+    if (!solarSystem) return;
+
+    // Check if screen width is mobile size (under 768px)
+    if (window.innerWidth < 768) {
+        // Scaled down specifically for smaller mobile screens
+        solarSystem.setAttribute('scale', '0.025 0.025 0.025');
+    } else {
+        // Normal scale for desktop screens
+        solarSystem.setAttribute('scale', '0.07 0.07 0.07');
+    }
+}
+
+// Run on page load and window resize
+window.addEventListener('load', adjustScaleForMobile);
+window.addEventListener('resize', adjustScaleForMobile);
