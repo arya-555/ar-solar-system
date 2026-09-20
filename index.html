@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Solar System</title>
+
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+    <!-- AR.js -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    
+    <!-- Custom Script -->
+    <script src="script.js" defer></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Loading Screen Overlay -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading 3D Solar System...</p>
+    </div>
+
+    <!-- Instruction Banner -->
+    <div id="instruction-banner">
+        📷 Point camera at Hiro Marker • Tap a planet to inspect
+    </div>
+
+    <!-- Animation Control -->
+    <button id="animation-btn">⏸ Animation</button>
+
+    <!-- 2D Planet Selector Bar -->
+    <div id="planet-bar">
+        <button onclick="selectPlanet('sun')">Sun</button>
+        <button onclick="selectPlanet('mercury')">Mercury</button>
+        <button onclick="selectPlanet('venus')">Venus</button>
+        <button onclick="selectPlanet('earth')">Earth</button>
+        <button onclick="selectPlanet('moon')">Moon</button>
+        <button onclick="selectPlanet('mars')">Mars</button>
+        <button onclick="selectPlanet('jupiter')">Jupiter</button>
+        <button onclick="selectPlanet('saturn')">Saturn</button>
+        <button onclick="selectPlanet('uranus')">Uranus</button>
+        <button onclick="selectPlanet('neptune')">Neptune</button>
+        <button onclick="selectPlanet('pluto')">Pluto</button>
+    </div>
+
+    <!-- Info Panel Card -->
+    <div id="info-panel">
+        <button id="close-btn" onclick="hideInfo()">✕</button>
+        <h3 id="info-title">Solar System</h3>
+        <p id="info-desc">Click any planet button below or tap a 3D planet directly.</p>
+    </div>
+
+    <!-- AR Scene -->
+    <a-scene
+        embedded
+        arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best; maxDetectionRate: 60;"
+        renderer="logarithmicDepthBuffer: true; antialias: true;">
+
+        <!-- Ambient Lights for Model Brightness -->
+        <a-entity light="type: ambient; color: #ffffff; intensity: 1.5"></a-entity>
+        <a-entity light="type: directional; color: #ffffff; intensity: 1" position="-1 2 1"></a-entity>
+
+        <!-- Hiro Marker Anchor -->
+        <a-marker preset="hiro" emitevents="true">
+            <a-entity
+                id="solarSystem"
+                gltf-model="url(models/simple-solar-system.glb)"
+                position="0 0 0"
+                scale="0.07 0.07 0.07"
+                rotation="0 90 0"
+                planet-selector>
+            </a-entity>
+        </a-marker>
+
+        <!-- Camera -->
+        <a-entity id="mainCamera" camera>
+            <a-cursor raycaster="objects: .collidable; fuse: false" cursor="rayOrigin: mouse"></a-cursor>
+        </a-entity>
+
+    </a-scene>
+
+    <!-- Zoom Controls -->
+    <div id="controls">
+        <button id="zoomIn">+</button>
+        <button id="zoomOut">−</button>
+    </div>
+
+</body>
+
+</html>
